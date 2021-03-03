@@ -5,13 +5,14 @@ let facturas;
 const apiFacturas = async () => {
   const respuesta = await fetch(urlFacturas);
   facturas = await respuesta.json();
-  const nuevaFila = document.querySelector(".dummy").cloneNode(true);
-  nuevaFila.classList.remove("dummy");
-  nuevaFila.hidden = false;
+
   const facturasIngreso = facturas
     .filter(factura => factura.tipo === "ingreso");
   console.log(facturasIngreso);
   for (const factura of facturasIngreso) {
+    const nuevaFila = document.querySelector(".dummy").cloneNode(true);
+    nuevaFila.classList.remove("dummy");
+    nuevaFila.hidden = false;
     nuevaFila.querySelector(".numero-factura").textContent = factura.numero;
     nuevaFila.querySelector(".fecha-factura").textContent = factura.fecha;
     nuevaFila.querySelector(".aplicacion").textContent = factura.concepto;
