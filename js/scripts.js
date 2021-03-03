@@ -16,10 +16,10 @@ const apiFacturas = async () => {
     nuevaFila.querySelector(".numero-factura").textContent = factura.numero;
     nuevaFila.querySelector(".fecha-factura").textContent = factura.fecha;
     nuevaFila.querySelector(".aplicacion").textContent = factura.concepto;
-    nuevaFila.querySelector(".monto-base").textContent = factura.base;
-    nuevaFila.querySelector(".monto-iva").textContent = calculaIva(factura.base);
-    nuevaFila.querySelector(".monto-total").textContent = factura.base + calculaIva(factura.base);
-    nuevaFila.querySelector(".estado-factura").textContent = 0;
+    nuevaFila.querySelector(".monto-base").textContent = `${factura.base} €`;
+    nuevaFila.querySelector(".monto-iva").textContent = `${calculaIva(factura.base)}€ (21%)`;
+    nuevaFila.querySelector(".monto-total").textContent = `${factura.base + calculaIva(factura.base)} €`;
+    nuevaFila.querySelector(".estado-factura").textContent = factura.vencimiento;
     nuevaFila.querySelector(".factura-vence").textContent = 0;
 
     listado.append(nuevaFila);
