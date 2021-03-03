@@ -6,6 +6,9 @@ a,
 a:hover {
   color: inherit;
 }
+.on {
+  visibility: collapse;
+}
 .sidebar {
   background-color: #272c33;
   color: #d7d9e3;
