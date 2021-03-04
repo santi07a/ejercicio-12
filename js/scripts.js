@@ -14,13 +14,15 @@ const apiFacturas = async () => {
     nuevaFila.classList.remove("dummy");
     nuevaFila.hidden = false;
     nuevaFila.querySelector(".numero-factura").textContent = factura.numero;
-    nuevaFila.querySelector(".fecha-factura").textContent = factura.fecha;
+    nuevaFila.querySelector(".fecha-factura").textContent =
+      luxon.DateTime.fromMillis(+factura.fecha).setLocale("es").toLocaleString();
     nuevaFila.querySelector(".aplicacion").textContent = factura.concepto;
     nuevaFila.querySelector(".monto-base").textContent = `${factura.base} €`;
     nuevaFila.querySelector(".monto-iva").textContent = `${calculaIva(factura.base)}€ (21%)`;
     nuevaFila.querySelector(".monto-total").textContent = `${factura.base + calculaIva(factura.base)} €`;
-    nuevaFila.querySelector(".estado-factura").textContent = factura.vencimiento;
-    nuevaFila.querySelector(".factura-vence").textContent = 0;
+    nuevaFila.querySelector(".estado-factura").textContent = 0;
+    nuevaFila.querySelector(".factura-vence").textContent =
+      luxon.DateTime.fromMillis(+factura.vencimiento).setLocale("es").toLocaleString();
 
     listado.append(nuevaFila);
   }
