@@ -21,7 +21,10 @@ const apiFacturas = async () => {
     const extraIva = factura.base * factura.tipoIva / 100;
     nuevaFila.querySelector(".monto-iva").textContent = `${extraIva}€ (${factura.tipoIva}%)`;
     nuevaFila.querySelector(".monto-total").textContent = `${factura.base + extraIva} €`;
-    nuevaFila.querySelector(".estado-factura").textContent = 0;
+    nuevaFila.querySelector(".estado-factura").textContent = factura.abonada ? "Abonada" : "No abonada";
+    if (!factura.abonada) {
+      nuevaFila.querySelector(".estado-factura").classList.add("table-danger");
+    }
     nuevaFila.querySelector(".factura-vence").textContent =
       luxon.DateTime.fromMillis(+factura.vencimiento).setLocale("es").toLocaleString();
 
