@@ -18,8 +18,9 @@ const apiFacturas = async () => {
       luxon.DateTime.fromMillis(+factura.fecha).setLocale("es").toLocaleString();
     nuevaFila.querySelector(".aplicacion").textContent = factura.concepto;
     nuevaFila.querySelector(".monto-base").textContent = `${factura.base} €`;
-    nuevaFila.querySelector(".monto-iva").textContent = `${calculaIva(factura.base)}€ (21%)`;
-    nuevaFila.querySelector(".monto-total").textContent = `${factura.base + calculaIva(factura.base)} €`;
+    const extraIva = factura.base * factura.tipoIva / 100;
+    nuevaFila.querySelector(".monto-iva").textContent = `${extraIva}€ (${factura.tipoIva}%)`;
+    nuevaFila.querySelector(".monto-total").textContent = `${factura.base + extraIva} €`;
     nuevaFila.querySelector(".estado-factura").textContent = 0;
     nuevaFila.querySelector(".factura-vence").textContent =
       luxon.DateTime.fromMillis(+factura.vencimiento).setLocale("es").toLocaleString();
@@ -28,5 +29,3 @@ const apiFacturas = async () => {
   }
 };
 apiFacturas();
-
-const calculaIva = numero => (numero * 21) / 100;
