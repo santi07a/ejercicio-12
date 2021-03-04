@@ -22,12 +22,14 @@ const apiFacturas = async () => {
     nuevaFila.querySelector(".monto-iva").textContent = `${extraIva}€ (${factura.tipoIva}%)`;
     nuevaFila.querySelector(".monto-total").textContent = `${factura.base + extraIva} €`;
     nuevaFila.querySelector(".estado-factura").textContent = factura.abonada ? "Abonada" : "No abonada";
+    nuevaFila.querySelector(".factura-vence").textContent = factura.abonada ? "-" :
+      luxon.DateTime.fromMillis(+factura.vencimiento).setLocale("es").toLocaleString();
     if (!factura.abonada) {
       nuevaFila.querySelector(".estado-factura").classList.add("table-danger");
+      if (+factura.vencimiento < luxon.DateTime.now().ts) {
+        nuevaFila.querySelector(".factura-vence").classList.add("table-danger");
+      }
     }
-    nuevaFila.querySelector(".factura-vence").textContent =
-      luxon.DateTime.fromMillis(+factura.vencimiento).setLocale("es").toLocaleString();
-
     listado.append(nuevaFila);
   }
 };
