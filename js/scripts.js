@@ -9,6 +9,8 @@ const apiFacturas = async () => {
   const facturasIngreso = facturas
     .filter(factura => factura.tipo === "ingreso");
   console.log(facturasIngreso);
+  let sumaBase = 0;
+  let sumaIva = 0;
   for (const factura of facturasIngreso) {
     const nuevaFila = document.querySelector(".dummy").cloneNode(true);
     nuevaFila.classList.remove("dummy");
@@ -30,7 +32,12 @@ const apiFacturas = async () => {
         nuevaFila.querySelector(".factura-vence").classList.add("table-danger");
       }
     }
+    sumaBase += factura.base;
+    sumaIva += extraIva;
     listado.append(nuevaFila);
   }
+  document.querySelector(".suma-base").textContent = sumaBase;
+  document.querySelector(".suma-iva").textContent = sumaIva;
+  document.querySelector(".suma-total").textContent = sumaBase + sumaIva;
 };
 apiFacturas();
