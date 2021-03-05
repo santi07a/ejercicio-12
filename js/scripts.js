@@ -29,7 +29,15 @@ const apiFacturas = async () => {
     if (!factura.abonada) {
       nuevaFila.querySelector(".estado-factura").classList.replace("table-success", "table-danger");
       if (+factura.vencimiento < luxon.DateTime.now().ts) {
+        nuevaFila.querySelector(".factura-vence").innerHTML += `<br> Han pasado \
+         ${Math.trunc(luxon.DateTime.now()
+          .diff(luxon.DateTime.fromMillis(+factura.vencimiento), 'days').values.days)}`;
         nuevaFila.querySelector(".factura-vence").classList.replace("table-success", "table-danger");
+      }
+      else {
+        nuevaFila.querySelector(".factura-vence").innerHTML += `<br> Faltan \
+         ${Math.ceil(-luxon.DateTime.now()
+          .diff(luxon.DateTime.fromMillis(+factura.vencimiento), 'days').values.days)}`;
       }
     }
     sumaBase += factura.base;
