@@ -27,9 +27,9 @@ const apiFacturas = async () => {
     nuevaFila.querySelector(".factura-vence").textContent = factura.abonada ? "-" :
       luxon.DateTime.fromMillis(+factura.vencimiento).setLocale("es").toLocaleString();
     if (!factura.abonada) {
-      nuevaFila.querySelector(".estado-factura").classList.add("table-danger");
+      nuevaFila.querySelector(".estado-factura").classList.replace("table-success", "table-danger");
       if (+factura.vencimiento < luxon.DateTime.now().ts) {
-        nuevaFila.querySelector(".factura-vence").classList.add("table-danger");
+        nuevaFila.querySelector(".factura-vence").classList.replace("table-success", "table-danger");
       }
     }
     sumaBase += factura.base;
